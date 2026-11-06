@@ -4,23 +4,7 @@ Un bot de Telegram en una Raspberry Pi. El mismo sitio sirve para hablar con un 
 
 ## Texto
 
-El texto va por OpenRouter. En **Cambiar modelo** se elige uno y se queda activo. Guarda el hilo de la conversación y **Borrar historial** lo vacía. En **Estado de servidor** sale lo que queda en Fal y en OpenRouter.
-
-| Modelo | Para qué sirve |
-| --- | --- |
-| Dolphin Venice | Charla directa, con menos rechazos que un modelo comercial |
-| Cydonia 24B | Escritura creativa: recuerda el hilo y se ciñe al prompt |
-| Skyfall 36B | Relatos y roleplay, con más matices |
-| Euryale 70B | Roleplay largo y personajes. Más lento y más caro |
-| Lunaris 8B | Charla y rol ligero, cuando no hace falta un modelo grande |
-| UnslopNemo 12B | Aventura y roleplay, con menos frases genéricas |
-| MythoMax 13B | Descripciones y roleplay. El de contexto más corto |
-| Magnum 72B | Prosa literaria y textos largos |
-| Hermes 3 70B | Razonar, agentes y tareas generales |
-| Hermes 3 405B | El mismo Hermes 3, con más capacidad y más coste |
-| Hermes 4 405B | Razonamiento. El más pesado de la lista |
-| Qwen3 Coder | Código, revisión y scripts. Este lleva filtros |
-| Command R+ | Documentos largos, síntesis y arquitectura. Con filtros |
+El texto va por OpenRouter. En **Cambiar modelo** se elige uno y se queda activo. La lista está en el bot y va cambiando. Guarda el hilo de la conversación y **Borrar historial** lo vacía. En **Estado de servidor** sale lo que queda en Fal y en OpenRouter.
 
 ## Generación
 
