@@ -1,19 +1,39 @@
 # Laboratorio IA
 
-Un bot de Telegram, en una Raspberry Pi, para hablar con un modelo y generar imagen, vídeo y voz desde el mismo chat.
+Un bot de Telegram en una Raspberry Pi. El mismo sitio sirve para hablar con un modelo de texto y para generar imagen, vídeo y voz. El mismo catálogo está en Telegram y en un panel local.
 
-## Qué puedes hacer
+## Texto
 
-Desde el botón **Generación**:
+El texto va por OpenRouter. En **Cambiar modelo** se elige uno y se queda activo. Guarda el hilo de la conversación y **Borrar historial** lo vacía. En **Estado de servidor** sale lo que queda en Fal y en OpenRouter.
 
-- **Generar imagen.** Crea una imagen a partir de un texto, con Flux.
-- **Modificar imagen.** Cambia la foto que envías y conserva a la persona. La fuerza del cambio es 0,75.
-- **Animar imagen.** La foto es el primer fotograma. Tú describes qué tiene que pasar.
-- **Avatar hablando.** Escribes un texto, el bot lo dice con tu voz y Kling mueve a la persona de la foto. No deja la imagen quieta para pintar solo los labios.
-- **Texto a voz.** Convierte cualquier texto en audio.
-- **Mi voz.** Le mandas notas de voz. Las junta como muestra (unos 6 segundos, hasta 30). No entrena un modelo en la Pi: la voz se copia de esos audios.
+| Modelo | Para qué sirve |
+| --- | --- |
+| Dolphin Venice | Charla directa, con menos rechazos que un modelo comercial |
+| Cydonia 24B | Escritura creativa: recuerda el hilo y se ciñe al prompt |
+| Skyfall 36B | Relatos y roleplay, con más matices |
+| Euryale 70B | Roleplay largo y personajes. Más lento y más caro |
+| Lunaris 8B | Charla y rol ligero, cuando no hace falta un modelo grande |
+| UnslopNemo 12B | Aventura y roleplay, con menos frases genéricas |
+| MythoMax 13B | Descripciones y roleplay. El de contexto más corto |
+| Magnum 72B | Prosa literaria y textos largos |
+| Hermes 3 70B | Razonar, agentes y tareas generales |
+| Hermes 3 405B | El mismo Hermes 3, con más capacidad y más coste |
+| Hermes 4 405B | Razonamiento. El más pesado de la lista |
+| Qwen3 Coder | Código, revisión y scripts. Este lleva filtros |
+| Command R+ | Documentos largos, síntesis y arquitectura. Con filtros |
 
-El resto del teclado sigue siendo el chat: cambiar el modelo de texto, borrar el historial y ver el estado del servidor. Ahí abajo sale lo que queda en Fal y en OpenRouter.
+## Generación
+
+El botón **Generación** abre seis vías:
+
+- **Generar imagen.** Crea la foto a partir de un texto, con Flux.
+- **Modificar imagen.** Parte de la foto que envías y conserva a la persona. La fuerza del cambio es 0,75.
+- **Animar imagen.** Esa foto es el primer fotograma. Tú describes qué tiene que pasar. Usa MiniMax y, si falla, Kling.
+- **Avatar hablando.** El texto se dice con tu voz y Kling mueve la cara. No deja la imagen quieta para pintar solo los labios.
+- **Texto a voz.** Convierte una frase en audio.
+- **Mi voz.** Le mandas notas de voz. Las junta como muestra, de unos 6 a 30 segundos, y copia esa voz. No entrena un modelo en la Pi.
+
+El modelo de imagen y el de vídeo se pueden cambiar en la configuración, sin tocar el código.
 
 ## Cómo está hecho
 
@@ -29,7 +49,7 @@ Un solo proceso, `bot.py`.
 
 La Pi tiene poca memoria. Por eso no hay SDKs pesados ni un entrenamiento local: las llamadas van por HTTP y la voz es una muestra, no un modelo nuevo.
 
-Para cambiar el modelo de imagen o de vídeo sin tocar el código, en `.env`:
+Para cambiar el modelo de imagen o de vídeo, en `.env`:
 
 - `CUSTOM_IMAGE_MODEL`
 - `CUSTOM_VIDEO_MODEL`
