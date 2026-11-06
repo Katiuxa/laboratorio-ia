@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+voz_usuario/
+audio_gasto.json
+.bot.pid
+deploy_netlify.zip
