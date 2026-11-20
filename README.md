@@ -1,50 +1,50 @@
-# Laboratorio IA
+# AI Lab
 
-Un bot de Telegram en una Raspberry Pi. El mismo sitio sirve para hablar con un modelo de texto y para generar imagen, vídeo y voz. El mismo catálogo está en Telegram y en un panel local.
+A Telegram bot on a Raspberry Pi. The same place is used to talk to a text model and to generate images, video, and voice. The same catalog is available on Telegram and on a local panel.
 
-## Texto
+## Text
 
-El texto va por OpenRouter. En **Cambiar modelo** se elige uno y se queda activo. La lista está en el bot y va cambiando. Guarda el hilo de la conversación y **Borrar historial** lo vacía. En **Estado de servidor** sale lo que queda en Fal y en OpenRouter.
+Text goes through OpenRouter. **Change model** picks one and leaves it active. The list lives in the bot and changes over time. It keeps the conversation thread, and **Clear history** empties it. **Server status** shows what remains on Fal and on OpenRouter.
 
-## Generación
+## Generation
 
-El botón **Generación** abre seis vías:
+The **Generation** button opens six paths:
 
-- **Generar imagen.** Crea la foto a partir de un texto, con Flux.
-- **Modificar imagen.** Parte de la foto que envías y conserva a la persona. La fuerza del cambio es 0,75.
-- **Animar imagen.** Esa foto es el primer fotograma. Tú describes qué tiene que pasar. Usa MiniMax y, si falla, Kling.
-- **Avatar hablando.** El texto se dice con tu voz y Kling mueve la cara. No deja la imagen quieta para pintar solo los labios.
-- **Texto a voz.** Convierte una frase en audio.
-- **Mi voz.** Le mandas notas de voz. Las junta como muestra, de unos 6 a 30 segundos, y copia esa voz. No entrena un modelo en la Pi.
+- **Generate image.** Creates the picture from a prompt, using Flux.
+- **Edit image.** Starts from the photo you send and keeps the person. The strength of the change is 0.75.
+- **Animate image.** That photo is the first frame. You describe what should happen. It uses MiniMax and, if that fails, Kling.
+- **Talking avatar.** The text is spoken in your voice and Kling moves the face. It does not leave the image still just to paint the lips.
+- **Text to speech.** Turns a sentence into audio.
+- **My voice.** You send voice notes. It joins them into a sample, about 6 to 30 seconds, and copies that voice. It does not train a model on the Pi.
 
-El modelo de imagen y el de vídeo se pueden cambiar en la configuración, sin tocar el código.
+The image model and the video model can be changed in the configuration, without touching the code.
 
-## Cómo está hecho
+## How it is built
 
-Un solo proceso, `bot.py`.
+A single process, `bot.py`.
 
-| Parte | Dónde corre |
+| Part | Where it runs |
 | --- | --- |
 | Chat | OpenRouter |
-| Imagen, vídeo y avatar | Fal |
-| Voz | Replicate, modelo XTTS |
-| Panel web | Flask, puerto 5000 |
-| Servicio | systemd, unidad `bot-ia` |
+| Image, video, and avatar | Fal |
+| Voice | Replicate, XTTS model |
+| Web panel | Flask, port 5000 |
+| Service | systemd, unit `bot-ia` |
 
-La Pi tiene poca memoria. Por eso no hay SDKs pesados ni un entrenamiento local: las llamadas van por HTTP y la voz es una muestra, no un modelo nuevo.
+The Pi has little memory. That is why there are no heavy SDKs and no local training: calls go over HTTP, and the voice is a sample, not a new model.
 
-Para cambiar el modelo de imagen o de vídeo, en `.env`:
+To change the image or video model, set these in `.env`:
 
 - `CUSTOM_IMAGE_MODEL`
 - `CUSTOM_VIDEO_MODEL`
 - `CUSTOM_VIDEO_FALLBACK_MODEL`
 
-Si esas líneas están vacías, usa Flux, MiniMax y Kling.
+If those lines are empty, it uses Flux, MiniMax, and Kling.
 
-## Puesta en marcha
+## Getting started
 
-1. Copia `.env.example` a `.env` y rellena las claves.
-2. En la Raspberry, el servicio `bot-ia` arranca `bot.py` con ese `.env`.
-3. `deploy.sh` copia el código a la Pi. La IP y el usuario están en el script. La contraseña no está en el repositorio: se exporta `PI_PASSWORD` antes de lanzarlo.
+1. Copy `.env.example` to `.env` and fill in the keys.
+2. On the Raspberry Pi, the `bot-ia` service starts `bot.py` with that `.env`.
+3. `deploy.sh` copies the code to the Pi. The IP and the user are in the script. The password is not in the repository: export `PI_PASSWORD` before running it.
 
-Las claves, el token de Telegram y la contraseña del panel no van en este repositorio.
+The keys, the Telegram token, and the panel password are not in this repository.
